@@ -3,7 +3,7 @@ import './App.css';
 import AppHeader from "../components/Header/AppHeader";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
-import {DataContext,IngredientsContext,PriceContext,OrderContext} from "../components/Services/DataContext";
+import {DataContext,IngredientsContext,PriceContext,OrderContext} from "../Services/DataContext";
 
 let url = 'https://norma.nomoreparties.space/api/ingredients';
 

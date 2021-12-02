@@ -3,7 +3,7 @@ import React, {useContext, useState} from "react";
 import {Button, ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../Order/OrderDetails";
 import Modal from "../Modal/Modal";
-import {IngredientsContext, OrderContext} from "../Services/DataContext";
+import {IngredientsContext, OrderContext} from "../../Services/DataContext";
 import TotalPrice from "../TotalPrice/TotalPrice";
 
 const BurgerConstructor = () => {

@@ -2,7 +2,7 @@ import "./BurgerIngredients.css"
 import React, {useEffect,useContext} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "./Ingredients/Ingredient";
-import {DataContext} from "../Services/DataContext";
+import {DataContext} from "../../Services/DataContext";
 
 const BurgerIngredients = () =>{
     const [data] = useContext(DataContext);

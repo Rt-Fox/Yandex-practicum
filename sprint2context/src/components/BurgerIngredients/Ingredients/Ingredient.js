@@ -4,7 +4,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "./IngredientDetails";
 import Modal from "../../Modal/Modal";
 import {menuItemPropTypes} from "../../../utils/constants";
-import {IngredientsContext} from "../../Services/DataContext";
+import {IngredientsContext} from "../../../Services/DataContext";
 
 const Ingredient = ({item}) => {
     const [open, setOpen] = useState(false);

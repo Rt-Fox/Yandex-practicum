@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import "./TotalPrice.css"
-import {IngredientsContext, PriceContext} from "../Services/DataContext";
+import {IngredientsContext, PriceContext} from "../../Services/DataContext";
 
 const TotalPrice = () => {
     const [ingredients] = useContext(IngredientsContext);
