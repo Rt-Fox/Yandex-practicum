@@ -1,20 +1,25 @@
 import "./BurgerConstructor.css"
-import React, {useRef, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import {Button, ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../Order/OrderDetails";
 import Modal from "../Modal/Modal";
 import TotalPrice from "../TotalPrice/TotalPrice";
-import {setIngredientsBun, setNewIngredients} from "../../Services/reducers/ingredientsReducer";
+import {
+    moveIngredients,
+    setIngredients,
+    setIngredientsBun,
+    setNewIngredients
+} from "../../services/reducers/ingredientsReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {getOrder} from "../../Services/actions/getOrder";
+import {getOrder} from "../../services/actions/getOrder";
 import {useDrop} from "react-dnd";
 import DraggableElement from "./DraggableElement";
+import update from "immutability-helper";
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch()
     const ingredients = useSelector(state => state.ingredients);
     const [open, setOpen] = useState(false);
-
     const [{ isHover }, dropTarget] = useDrop({
         accept: 'ingredient',
         collect: monitor => ({
@@ -36,7 +41,9 @@ const BurgerConstructor = () => {
     const handleClickClose = () => {
         setOpen(false)
     };
-
+    const moveElement = (dragIndex, hoverIndex, item) => {
+        dispatch(moveIngredients({dragIndex: dragIndex,hoverIndex: hoverIndex,dragIngredients: item }));
+    };
     return (
         <section ref={dropTarget} className='right-section'>
             <div className='d-flex flex-column' style={{  gap: '16px' }}>
@@ -50,8 +57,8 @@ const BurgerConstructor = () => {
                     />
                 </div>
                 <div className='ingredients_list' style={{  gap: '16px' }} >
-                    {ingredients.ingredients.map((item,index) =>
-                        <DraggableElement item={item} index={index} key={index} />
+                    {ingredients.ingredients.map((ingredient,index) =>
+                        <DraggableElement id={ingredient.id} ingredient={ingredient} index={index} key={ingredient.id} moveElement={moveElement}/>
                     )}
                 </div>
                 <div className='ml-10'>

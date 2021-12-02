@@ -4,7 +4,7 @@ import AppHeader from "../components/Header/AppHeader";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
 import {useDispatch} from "react-redux";
-import {getData} from "../Services/actions/getData";
+import {getData} from "../services/actions/getData";
 
 
 

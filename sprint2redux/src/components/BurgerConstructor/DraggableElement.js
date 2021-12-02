@@ -1,18 +1,14 @@
-import React, {useCallback, useRef} from 'react';
+import React, { useRef} from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {deleteIngredients, setIngredients} from "../../Services/reducers/ingredientsReducer";
-import {useDispatch, useSelector} from "react-redux";
+import {deleteIngredients} from "../../services/reducers/ingredientsReducer";
+import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
-import update from 'immutability-helper';
 
-const DraggableElement = ({item,index}) => {
+const DraggableElement = ({id, ingredient, index, moveElement}) => {
     const dispatch = useDispatch()
-    const ingredients = useSelector(state => state.ingredients);
-
     const delIngredients = (index) => {
         dispatch(deleteIngredients(index))
     };
-
     const ref = useRef(null);
 
     const [{ handlerId }, drop] = useDrop({
@@ -41,23 +37,14 @@ const DraggableElement = ({item,index}) => {
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            moveCard(dragIndex, hoverIndex);
+            moveElement(dragIndex, hoverIndex, item.ingredient);
             item.index = hoverIndex;
         },
     });
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = ingredients.ingredients[dragIndex];
-        dispatch(setIngredients((update(ingredients.ingredients, {
-            $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragCard],
-            ],
-        }))));
-    }, []);
     const [{ isDragging }, drag] = useDrag({
         type: 'sort',
         item: () => {
-            return { item, index };
+            return { ingredient, index };
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -70,9 +57,9 @@ const DraggableElement = ({item,index}) => {
                 <DragIcon type="primary" />
             </span>
             <ConstructorElement
-                text={item?.name}
-                price={item?.price}
-                thumbnail={item?.image_mobile}
+                text={ingredient?.name}
+                price={ingredient?.price}
+                thumbnail={ingredient?.image_mobile}
                 handleClose={()=>delIngredients(index)}
             />
         </div>

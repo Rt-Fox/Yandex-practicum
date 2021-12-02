@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import "./TotalPrice.css"
 import {useDispatch, useSelector} from "react-redux";
-import {setPrice} from "../../Services/reducers/priceReducer";
+import {setPrice} from "../../services/reducers/priceReducer";
 
 const TotalPrice = () => {
     const dispatch = useDispatch()

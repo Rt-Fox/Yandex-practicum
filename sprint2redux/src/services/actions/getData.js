@@ -1,5 +1,6 @@
-import {setData, setDataBun,setDataSauce,setDataMain} from "../reducers/datasReducer";
-import { setIngredientsBun} from "../reducers/ingredientsReducer";
+import {setData, setDataBun, setDataMain, setDataSauce} from "../reducers/datasReducer";
+import {setIngredientsBun} from "../reducers/ingredientsReducer";
+
 
 let url = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -21,7 +22,7 @@ export const getData = () => {
                 const data_bun = [];
                 const data_sauce = [];
                 const data_main = [];
-                response.data.forEach(item => {
+                response.data.forEach((item,index) => {
                      item.type === 'bun'?
                          data_bun.push(item)
                          :

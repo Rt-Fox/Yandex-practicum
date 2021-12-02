@@ -5,7 +5,7 @@ import IngredientDetails from "./IngredientDetails";
 import Modal from "../../Modal/Modal";
 import {menuItemPropTypes} from "../../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {setIngredientsBun, setNewIngredients} from "../../../Services/reducers/ingredientsReducer";
+import {setIngredientsBun, setNewIngredients} from "../../../services/reducers/ingredientsReducer";
 import {useDrag} from "react-dnd";
 
 const Ingredient = ({item}) => {
