@@ -1,4 +1,4 @@
-const SET_ORDER = 'SET_ORDER'
+import {SET_ORDER} from "../actions/orderAction";
 
 const defaultState = {
     order: {}
@@ -14,5 +14,3 @@ export const orderReducer = (state = defaultState, action) => {
             return state
     }
 }
-
-export const setOrder = (payload) => { return { type: SET_ORDER, payload } }

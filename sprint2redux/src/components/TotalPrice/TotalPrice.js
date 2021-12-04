@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import "./TotalPrice.css"
 import {useDispatch, useSelector} from "react-redux";
-import {setPrice} from "../../services/reducers/priceReducer";
+import {setPrice} from "../../services/actions/priceAction";
+import styles from "./TotalPrice.module.css"
 
 const TotalPrice = () => {
     const dispatch = useDispatch()
@@ -19,8 +19,8 @@ const TotalPrice = () => {
         [ingredients]
     );
     return (
-        <div className='summ_price'>
-            <p className="text text_type_digits-medium">{price?.total_price}</p>
+        <div className={styles.summ_price}>
+            <p className="text text_type_digits-medium">{price.total_price?price.total_price:0}</p>
             <CurrencyIcon style={{width: '33px'}} type="primary" />
         </div>
     );

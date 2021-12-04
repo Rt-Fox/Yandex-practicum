@@ -1,15 +1,19 @@
-const SET_NEW_INGREDIENTS = 'SET_NEW_INGREDIENTS'
-const SET_INGREDIENTS = 'SET_INGREDIENTS'
-const SET_INGREDIENTS_DETAIL = 'SET_INGREDIENTS_DETAIL'
-const SET_INGREDIENTS_BUN = 'SET_INGREDIENTS_BUN'
-const DEL_INGREDIENTS = 'DEL_INGREDIENTS'
-const MOVE_INGREDIENTS = 'MOVE_INGREDIENTS'
+import {
+    DEL_ALL_INGREDIENTS,
+    DEL_INGREDIENTS,
+    MOVE_INGREDIENTS,
+    SET_INGREDIENTS,
+    SET_INGREDIENTS_BUN,
+    SET_INGREDIENTS_DETAIL,
+    SET_NEW_INGREDIENTS
+} from "../actions/ingredientsAction";
+
 
 const defaultState = {
     ingredients: [],
     sort: 0,
     ingredients_details: {},
-    ingredients_bun: {}
+    ingredients_bun: null
 }
 
 export const ingredientsReducer = (state = defaultState, action) => {
@@ -35,9 +39,10 @@ export const ingredientsReducer = (state = defaultState, action) => {
                 ...state,
                 ingredients_bun: action.payload
             }
+        case DEL_ALL_INGREDIENTS:
+            return {...defaultState}
 
         case MOVE_INGREDIENTS:
-            console.log(action.payload.dragIngredients)
             state.ingredients.splice(action.payload.dragIndex, 1);
             state.ingredients.splice(action.payload.hoverIndex, 0, action.payload.dragIngredients)
             return {
@@ -58,10 +63,3 @@ export const ingredientsReducer = (state = defaultState, action) => {
             return state
     }
 }
-
-export const setNewIngredients = (payload) => { return { type: SET_NEW_INGREDIENTS, payload } }
-export const setIngredients = (payload) => { return { type: SET_INGREDIENTS, payload } }
-export const moveIngredients = (payload) => { return { type: MOVE_INGREDIENTS, payload } }
-export const setIngredientsDetail = (payload) => { return { type: SET_INGREDIENTS_DETAIL, payload } }
-export const setIngredientsBun = (payload) => { return { type: SET_INGREDIENTS_BUN, payload } }
-export const deleteIngredients = (payload) => { return { type: DEL_INGREDIENTS, payload } }

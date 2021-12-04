@@ -1,30 +1,24 @@
-import React, {useEffect,useRef} from 'react';
-import './App.css';
+import React, {useEffect} from 'react';
 import AppHeader from "../components/Header/AppHeader";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
 import {useDispatch} from "react-redux";
-import {getData} from "../services/actions/getData";
+import {getData} from "../services/http/getData";
 
-
+import styles from "./App.module.css"
 
 function App() {
-    const firstRenderRef = useRef(true);
     const dispatch = useDispatch();
 
-
     useEffect(() => {
-        if (firstRenderRef.current) {
             dispatch(getData())
-        }
-        firstRenderRef.current = false;
-    });
+    },[]);
 
     return (
         <div className="App">
             <AppHeader/>
             <main className='container'>
-                <div className={'row title'}>
+                <div className={'row '+ styles.title}>
                     <h1>Соберите бургер</h1>
                 </div>
                 {

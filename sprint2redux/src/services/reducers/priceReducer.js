@@ -1,4 +1,4 @@
-const SET_PRICE = 'SET_PRICE'
+import {SET_PRICE} from "../actions/priceAction";
 
 const defaultState = {
     total_price: 0,
@@ -14,5 +14,3 @@ export const priceReducer = (state = defaultState, action) => {
             return state
     }
 }
-
-export const setPrice = (payload) => { return { type: SET_PRICE, payload } }

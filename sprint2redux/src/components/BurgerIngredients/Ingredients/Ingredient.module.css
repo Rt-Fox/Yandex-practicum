@@ -8,7 +8,9 @@
     width: 272px;
     height: 208px;
 }
+.card_ingredient__top {
 
+}
 .card_ingredient__price {
     display: flex;
     align-items: center;

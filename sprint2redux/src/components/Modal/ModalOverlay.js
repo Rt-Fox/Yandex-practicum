@@ -1,6 +1,6 @@
 import React, {useEffect,useCallback} from 'react';
-import './ModalOverlay.css';
 import PropTypes from 'prop-types';
+import styles from "./ModalOverlay.module.css"
 
 const ModalOverlay = ({handleClickClose}) => {
     const listen = useCallback((event) => {
@@ -21,15 +21,14 @@ const ModalOverlay = ({handleClickClose}) => {
         }
     }, [listen]);
     return (
-        <>
-            <div onClick={
-                (event) =>
-                    (event.target.classList.value === ('ModalOverlay'))?
-                        handleClickClose()
-                        :null
-                } className={'ModalOverlay'}>
-            </div>
-        </>
+        <div onClick={
+            (event) =>
+                (event.target.classList.value === ('ModalOverlay'))?
+                    handleClickClose()
+                    :null
+            } className={styles.ModalOverlay}>
+        </div>
+
     );
 };
 

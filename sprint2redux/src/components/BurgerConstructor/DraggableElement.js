@@ -1,8 +1,10 @@
 import React, { useRef} from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {deleteIngredients} from "../../services/reducers/ingredientsReducer";
 import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
+import {deleteIngredients} from "../../services/actions/ingredientsAction";
+import './DtaggableElement.css'
+import PropTypes from "prop-types";
 
 const DraggableElement = ({id, ingredient, index, moveElement}) => {
     const dispatch = useDispatch()
@@ -52,7 +54,7 @@ const DraggableElement = ({id, ingredient, index, moveElement}) => {
     });
     drag(drop(ref));
     return (
-        <div ref={ref} className='d-flex align-items-center' data-handler-id={handlerId}>
+        <div ref={ref} className='d-flex align-items-center ' data-handler-id={handlerId}>
             <span className='m-2'>
                 <DragIcon type="primary" />
             </span>
@@ -67,3 +69,11 @@ const DraggableElement = ({id, ingredient, index, moveElement}) => {
 };
 
 export default DraggableElement;
+
+DraggableElement.propTypes = {
+    id: PropTypes.number.isRequired,
+    ingredient: PropTypes.object.isRequired,
+    index:PropTypes.number.isRequired,
+    moveElement: PropTypes.func.isRequired
+
+};

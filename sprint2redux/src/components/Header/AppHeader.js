@@ -1,10 +1,10 @@
-import './AppHeader.css';
 import React from "react";
 import {BurgerIcon,ListIcon,ProfileIcon, Logo} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./AppHeader.module.css"
 
 const AppHeader =()=>{
     return (
-    <header className={'AppHeader'}>
+    <header className={styles.AppHeader}>
         <div className="container h-100">
             <div className="row h-100 align-items-center justify-content-between">
                 <div className='col d-flex align-items-center'>
@@ -22,7 +22,7 @@ const AppHeader =()=>{
                 </div>
                 <a href="/" className='col d-flex justify-content-end' >
                      <ProfileIcon type="primary" />
-                     <p>Личный кобинет</p>
+                     <p>Личный кабинет</p>
                 </a>
             </div>
         </div>

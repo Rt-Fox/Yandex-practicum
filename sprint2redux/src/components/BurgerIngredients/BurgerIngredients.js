@@ -1,8 +1,9 @@
-import "./BurgerIngredients.css"
 import React, {useEffect} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "./Ingredients/Ingredient";
 import {useSelector} from "react-redux";
+import styles from "./BurgerIngredients.module.css"
+
 
 const BurgerIngredients = () => {
 
@@ -41,8 +42,8 @@ const BurgerIngredients = () => {
         return section.removeEventListener("scroll", ()=>{})
     }, [current])
     return (
-        <section className='left-section'>
-            <article className='tab'>
+        <section className={styles['left-section']}>
+            <article className={styles.tab}>
                 <Tab value="bun" active={current === 'bun'} onClick={
                     () => {
                         const el = document.getElementById('bun');
@@ -68,34 +69,31 @@ const BurgerIngredients = () => {
                     Начинки
                 </Tab>
             </article>
-                <article className='ingredients' id='burger-ingredients_section'>
+                <article className={styles.ingredients} id='burger-ingredients_section'>
                 <div id={'bun'}>
-                    <h3 className='title_ingredients'>Булки</h3>
-                    <div className='list_ingredients'>
-                        {data.data_bun?.map((item) =>
-                            <div key={item._id}>
-                                <Ingredient item={item}/>
-                            </div>
+                    <h3 className={styles.title_ingredients}>Булки</h3>
+                    <div className={styles.list_ingredients}>
+                        {data.data_bun?.map((item) =>  (
+                            <Ingredient key={item._id} item={item}/>
+                            )
                         )}
                     </div>
                 </div>
                 <div id={'sauce'}>
-                    <h3 className='title_ingredients'>Соусы</h3>
+                    <h3 className={styles.title_ingredients}>Соусы</h3>
                     <div className='d-flex flex-wrap'>
-                        {data.data_sauce?.map((item) =>
-                            <div key={item._id}>
-                                <Ingredient item={item}/>
-                            </div>
+                        {data.data_sauce?.map((item) =>(
+                            <Ingredient key={item._id} item={item}/>
+                            )
                         )}
                     </div>
                 </div>
                 <div id={'main'}>
-                    <h3 className='title_ingredients'>Начинки</h3>
+                    <h3 className={styles.title_ingredients}>Начинки</h3>
                     <div className='d-flex flex-wrap'>
-                        {data.data_main?.map((item) =>
-                            <div key={item._id}>
-                                <Ingredient item={item}/>
-                            </div>
+                        {data.data_main?.map((item) =>(
+                            <Ingredient key={item._id}  item={item}/>
+                            )
                         )}
                     </div>
                 </div>
