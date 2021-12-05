@@ -23,10 +23,11 @@ const ModalOverlay = ({handleClickClose}) => {
     return (
         <div onClick={
             (event) =>
-                (event.target.classList.value === ('ModalOverlay'))?
+                (event.target.classList.value?.slice(0,12) === ('ModalOverlay'))?
                     handleClickClose()
-                    :null
-            } className={styles.ModalOverlay}>
+                    :
+                    console.log(event.target.classList.value?.slice(0,12))
+            } className={'ModalOverlay ' + styles.ModalOverlay}>
         </div>
 
     );

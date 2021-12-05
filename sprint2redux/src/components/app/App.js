@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import AppHeader from "../components/Header/AppHeader";
-import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
 import {useDispatch} from "react-redux";
-import {getData} from "../services/http/getData";
 
 import styles from "./App.module.css"
+import {getData} from "../../services/http/getData";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import AppHeader from "../Header/AppHeader";
 
 function App() {
     const dispatch = useDispatch();

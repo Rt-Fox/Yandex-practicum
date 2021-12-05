@@ -6,6 +6,7 @@ import {menuItemPropTypes} from "../../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import styles from "./Ingredient.module.css"
+import Modal from "../../Modal/Modal";
 
 const Ingredient = ({item}) => {
     const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const Ingredient = ({item}) => {
                 </div>
                 <p className={styles.card_ingredient__name +' text text_type_main-default'}>{item.name}</p>
             </div>
-            {open&& <ModalModule children={<IngredientDetails item={item}/>} handleClickClose={handleClickClose} header={'Детали ингредиента'}/>}
+            {open&& <Modal children={<IngredientDetails item={item}/>} handleClickClose={handleClickClose} header={'Детали ингредиента'}/>}
 
         </>
 

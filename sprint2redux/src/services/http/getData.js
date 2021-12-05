@@ -1,7 +1,6 @@
 import {setData, setDataBun, setDataMain, setDataSauce} from "../actions/datasAction";
-import {setIngredientsBun} from "../actions/ingredientsAction";
-import {url} from "../utils/consts";
 import {checkResponse} from "./checkResponse";
+import {url} from "../../utils/constants";
 
 export const getData = () => {
 

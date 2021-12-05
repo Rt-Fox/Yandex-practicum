@@ -1,7 +1,7 @@
 import {setOrder} from "../actions/orderAction";
-import {url} from "../utils/consts";
 import {checkResponse} from "./checkResponse";
 import {deleteAllIngredients} from "../actions/ingredientsAction";
+import {url} from "../../utils/constants";
 
 
 export const getOrder = (data) => {
