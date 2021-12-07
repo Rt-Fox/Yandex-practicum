@@ -14,16 +14,16 @@ const ModalOverlay = ({handleClickClose}) => {
 
     useEffect(()=>{
         // Устанавливаем слушатель события при монтировании
-        document.addEventListener("keydown", (event)=> listen(event));
+        document.addEventListener("keydown", listen);
         // Сбрасываем слушатель события при удалении компонента из DOM
         return () => {
-            document.removeEventListener("keydown", (event)=> listen(event));
+            document.removeEventListener("keydown", listen);
         }
     }, [listen]);
     return (
         <div onClick={
             (event) =>
-                (event.target.classList.value?.slice(0,12) === ('ModalOverlay'))?
+                (event.target.classList.contains('ModalOverlay'))?
                     handleClickClose()
                     :
                     console.log(event.target.classList.value?.slice(0,12))
