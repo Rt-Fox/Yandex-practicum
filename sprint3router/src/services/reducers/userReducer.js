@@ -19,14 +19,20 @@ export const userReducer = (state = defaultState, action) => {
                 ...action.payload
             }
         case SET_PROFILE:
+            let accessToken = JSON.parse(localStorage.getItem(`token`))?.accessToken
+            let refreshToken = JSON.parse(localStorage.getItem(`token`))?.refreshToken
             return {
                 ...state,
-                user: {email: action.payload.email, name: action.payload.name}
+                success: true,
+                user: {email: action.payload.email, name: action.payload.name},
+                accessToken: accessToken,
+                refreshToken: refreshToken
             }
         case SET_TOKEN:
-            localStorage.setItem('token', action.payload);
+            localStorage.setItem('token', JSON.stringify({accessToken: action.payload.accessToken, refreshToken: action.payload.refreshToken }));
             return {
                 ...state,
+                success: true,
                 accessToken: action.payload.accessToken,
                 refreshToken: action.payload.refreshToken
             }

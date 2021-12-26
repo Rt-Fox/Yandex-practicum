@@ -1,6 +1,7 @@
 import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
-import {cleanUser, setProfile} from "../../actions/userAction";
+import {setProfile} from "../../actions/userAction";
+import {postToken} from "../auth/postToken";
 
 export const getUser = () => {
 
@@ -12,13 +13,23 @@ export const getUser = () => {
                 'Authorization': JSON.parse(localStorage.getItem(`token`))?.accessToken
             },
             method: 'GET',
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 if (response.success) {
                     dispatch(setProfile({email: response.user.email, name: response.user.name}))
                 }
             })
-            .catch(err => console.log(err));
+            .catch(errResponse => {
+                    errResponse.json()
+                        .then(err => {
+                                if (err.message === "jwt expired") {
+                                    dispatch(postToken())
+                                }
+                            }
+                        )
+                }
+            )
+
 
     }
 }

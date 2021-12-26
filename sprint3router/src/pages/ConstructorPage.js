@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import AppHeader from "../components/Header/AppHeader";
 import styles from "./Constructor.module.css";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";

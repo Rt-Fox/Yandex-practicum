@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {BrowserRouter as Router, Switch, Route, useLocation, useHistory} from 'react-router-dom';
 
 import {NotFound404} from "../pages/NotFound/NotFound404";
 import LoginPage from "../pages/Auth/LoginPage";
@@ -11,9 +11,19 @@ import ConstructorPage from "../pages/ConstructorPage";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import AppHeader from "../components/Header/AppHeader";
 import IngredientPage from "../pages/IngredientPage";
+import {getUser} from "../services/http/user/getUser";
+import {useDispatch, useSelector} from "react-redux";
 
 
 function App() {
+    const dispatch = useDispatch();
+    const open = useSelector(state => state.ingredients.modalOpen)
+
+    useEffect(()=> {
+        if (localStorage.getItem('token')){
+            dispatch(getUser())
+        }
+    },[])
 
     return (
         <div className="App">
@@ -26,11 +36,16 @@ function App() {
                     <ProtectedRoute path="/profile/orders" exact={true}>
                         <ProfilePage />
                     </ProtectedRoute>
-                    <Route path="/ingredients/:id">
-                        <IngredientPage />
-                    </Route>
                     <Route path="/" exact={true}>
                         <ConstructorPage />
+                    </Route>
+
+                    <Route path="/ingredients/:id">
+                        {JSON.parse(localStorage.getItem(`modal`))?.flag?
+                            <ConstructorPage />
+                        :
+                            <IngredientPage />
+                        }
                     </Route>
                     <Route path="/login" exact={true}>
                         <LoginPage />

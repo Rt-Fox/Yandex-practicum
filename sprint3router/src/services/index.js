@@ -7,6 +7,7 @@ import {ingredientsReducer} from "./reducers/ingredientsReducer";
 import {resetPasswordReducer} from "./reducers/resetPasswordReducer";
 import {authorizationReduser} from "./reducers/authorizationReduser";
 import {userReducer} from "./reducers/userReducer";
+import {personalInfoRedux} from "./reducers/personalInfoRedux";
 
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     resetPassword: resetPasswordReducer,
     authorization: authorizationReduser,
     user: userReducer,
+    personalInfo: personalInfoRedux,
 
 })
 

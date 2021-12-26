@@ -1,6 +1,7 @@
 import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
 import {setUser} from "../../actions/userAction";
+import {postToken} from "./postToken";
 
 export const postRegister = (form) => {
 
@@ -18,7 +19,18 @@ export const postRegister = (form) => {
                     dispatch(setUser(response))
                 }
             })
-            .catch(err => console.log(err));
+            .catch(errResponse => {
+                    errResponse.json()
+                        .then(err => {
+                                if (err.message === "jwt expired") {
+                                    dispatch(postToken())
+                                } else {
+                                    console.log(err.message)
+                                }
+                            }
+                        )
+                }
+            );
 
     }
 }

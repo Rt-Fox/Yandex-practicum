@@ -1,6 +1,7 @@
 import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
 import {cleanResetPassword} from "../../actions/resetPasswordAction";
+import {postToken} from "../auth/postToken";
 
 export const postPasswordReset = (form) => {
 
@@ -18,7 +19,18 @@ export const postPasswordReset = (form) => {
                     dispatch(cleanResetPassword())
                 }
             })
-            .catch(err => console.log(err));
+            .catch(errResponse => {
+                    errResponse.json()
+                        .then(err => {
+                                if (err.message === "jwt expired") {
+                                    dispatch(postToken())
+                                } else {
+                                    console.log(err.message)
+                                }
+                            }
+                        )
+                }
+            );
 
     }
 }

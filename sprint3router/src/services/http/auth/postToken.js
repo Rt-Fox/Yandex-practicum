@@ -1,8 +1,9 @@
 import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
-import {setToken, setUser} from "../../actions/userAction";
+import {setToken} from "../../actions/userAction";
+import {getUser} from "../user/getUser";
 
-export const postToken = (refreshToken) => {
+export const postToken = () => {
 
     return dispatch => {
         fetch(`${url}/auth/token`, {
@@ -11,14 +12,22 @@ export const postToken = (refreshToken) => {
                 'Content-Type': 'application/json'
             },
             method: 'POST',
-            body: JSON.stringify({'token': `{{${refreshToken}}}`})
+            body: JSON.stringify({'token': `${JSON.parse(localStorage.getItem(`token`))?.refreshToken}`})
         }) .then(checkResponse)
             .then(response => {
                 if (response.success) {
                     dispatch(setToken({accessToken: response.accessToken, refreshToken: response.refreshToken}))
+                    dispatch(getUser())
                 }
             })
-            .catch(err => console.log(err));
+            .catch(errResponse => {
+                    errResponse.json()
+                        .then(err => {
+                            console.log(err.message)
+                            }
+                        )
+                }
+            );
 
     }
 }

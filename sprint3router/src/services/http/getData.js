@@ -1,6 +1,7 @@
 import {setData, setDataBun, setDataMain, setDataSauce} from "../actions/datasAction";
 import {checkResponse} from "./checkResponse";
 import {url} from "../../utils/constants";
+import {postToken} from "./auth/postToken";
 
 export const getData = () => {
 
@@ -28,6 +29,17 @@ export const getData = () => {
                 dispatch(setDataSauce(dataSauce));
                 dispatch(setDataMain(dataMain));
             })
-            .catch(err => console.log(err))
+            .catch(errResponse => {
+                    errResponse.json()
+                        .then(err => {
+                                if (err.message === "jwt expired") {
+                                    dispatch(postToken())
+                                } else {
+                                    console.log(err.message)
+                                }
+                            }
+                        )
+                }
+            );
     }
 }

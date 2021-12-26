@@ -1,66 +1,92 @@
-import React, {useEffect} from 'react';
+import React, {useCallback} from 'react';
 import styles from './PersonalInformation.module.css'
-import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {getUser} from "../../services/http/user/getUser";
-import {setProfile} from "../../services/actions/userAction";
+import {
+    cleanPersonalInformation,
+    cleanPersonalInformationState,
+    setPersonalInformation
+} from "../../services/actions/personalInformationAction";
+import {pathUser} from "../../services/http/user/pathUser";
 
 const PersonalInformation = () => {
     const dispatch = useDispatch();
-
     const user = useSelector(state =>  state.user.user)
-    useEffect(() => {
-        dispatch(getUser())
-    },[])
+
+    const personalInfo = useSelector(state =>  state.personalInfo)
 
     const onChange = e => {
-        dispatch(setProfile({...user, [e.target.name]: e.target.value}))
+        dispatch(setPersonalInformation({name: e.target.name, value: e.target.value}))
     }
-    const onIconClick = (e) => {
 
+    const cancel = () => {
+        dispatch(cleanPersonalInformationState())
     }
+    const submitForm = useCallback(
+        e => {
+            e.preventDefault();
+            dispatch(pathUser(personalInfo))
+        },
+        [personalInfo]
+    );
+    const onIconClick = type => {
+            if (!personalInfo[type]) {
+                dispatch(setPersonalInformation({name: type, value: user[type]}))
+            }else {
+                dispatch(cleanPersonalInformation({name: type}))
+            }
+        };
+
     return (
         <div className={styles['personal-information']}>
-
             <div className={'input__block mt-6'}>
                 <Input
+                    disabled={!personalInfo.name}
                     type={'text'}
                     placeholder={'Имя'}
                     onChange={onChange}
-                    value={user.name}
-                    icon={'EditIcon'}
-                    onIconClick={onIconClick}
+                    value={personalInfo.name?personalInfo.name:user.name}
+                    icon={personalInfo.name?'CloseIcon':'EditIcon'}
+                    onIconClick={() => {onIconClick('name')}}
                     name={'name'}
-                    error={false}
                     size={'default'}
                 />
             </div>
             <div className={'input__block mt-6'}>
                 <Input
+                    disabled={!personalInfo?.email}
                     type={'text'}
                     placeholder={'Логин'}
                     onChange={onChange}
-                    onIconClick={onIconClick}
-                    value={user.email}
-                    icon={'EditIcon'}
-                    name={'name'}
-                    error={false}
+                    onIconClick={() => {onIconClick('email')}}
+                    value={personalInfo.email?personalInfo.email:user.email}
+                    icon={personalInfo.email?'CloseIcon':'EditIcon'}
+                    name={'email'}
                     size={'default'}
                 />
             </div>
             <div className={'input__block mt-6'}>
                 <Input
+                    disabled={true}
                     type={'password'}
                     placeholder={'Пароль'}
-                    onChange={onChange}
-                    onIconClick={onIconClick}
-                    value={user.password}
+                    value={''}
                     icon={'EditIcon'}
-                    name={'name'}
-                    error={false}
+                    name={'password'}
                     size={'default'}
-                />
+                    onChange={null}/>
             </div>
+            {personalInfo.name || personalInfo.email?
+                <div className='d-flex mt-4 align-self-end'>
+                    <Button type="secondary" size="medium" onClick={cancel}>
+                        Отмена
+                    </Button>
+                    <Button type="primary" size="medium" onClick={submitForm}>
+                        Сохранить
+                    </Button>
+                </div>:null
+            }
+
         </div>
     );
 };

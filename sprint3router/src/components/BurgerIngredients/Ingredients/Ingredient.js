@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "./IngredientDetails";
-import ModalModule from "../../Modal/Modal";
 import {menuItemPropTypes} from "../../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import styles from "./Ingredient.module.css"
 import Modal from "../../Modal/Modal";
+import { useHistory } from 'react-router-dom';
+import {setModalOpen} from "../../../services/actions/ingredientsAction";
 
 const Ingredient = ({item}) => {
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
+    const history = useHistory();
 
+    const open = useSelector(state => state.ingredients.modalOpen)
+    const itemId = useSelector(state => state.ingredients.itemId)
     const ingredients = useSelector(state => state.ingredients);
 
     const [{}, dragRef] = useDrag({
@@ -20,10 +23,20 @@ const Ingredient = ({item}) => {
     });
 
     const handleClickOpen = () => {
-        setOpen(true)
+        localStorage.setItem('modal', JSON.stringify({flag: true, itemId: item._id}))
+
+        dispatch(setModalOpen({flag: true, itemId: item._id}))
+        history.replace({
+            pathname: `/ingredients/${item._id}`
+        });
     };
     const handleClickClose = () => {
-        setOpen(false)
+        localStorage.setItem('modal', JSON.stringify({flag: false, itemId: null}))
+
+        dispatch(setModalOpen({flag: false, item: null}))
+        history.replace({
+            pathname: '/'
+        });
     };
     return (
         <>
@@ -55,7 +68,7 @@ const Ingredient = ({item}) => {
                 </div>
                 <p className={styles.card_ingredient__name +' text text_type_main-default'}>{item.name}</p>
             </div>
-            {open&& <Modal children={<IngredientDetails item={item}/>} handleClickClose={handleClickClose} header={'Детали ингредиента'}/>}
+            {open && itemId===item._id && <Modal children={<IngredientDetails item={item}/>} handleClickClose={handleClickClose} header={'Детали ингредиента'}/>}
 
         </>
 

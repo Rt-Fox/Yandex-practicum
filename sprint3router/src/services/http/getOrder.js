@@ -2,6 +2,7 @@ import {setOrder} from "../actions/orderAction";
 import {checkResponse} from "./checkResponse";
 import {deleteAllIngredients} from "../actions/ingredientsAction";
 import {url} from "../../utils/constants";
+import {postToken} from "./auth/postToken";
 
 
 export const getOrder = (data) => {
@@ -19,7 +20,18 @@ export const getOrder = (data) => {
                 dispatch(setOrder(response));
                 dispatch(deleteAllIngredients())
             })
-            .catch(err => console.log(err));
+            .catch(errResponse => {
+                    errResponse.json()
+                        .then(err => {
+                                if (err.message === "jwt expired") {
+                                    dispatch(postToken())
+                                } else {
+                                    console.log(err.message)
+                                }
+                            }
+                        )
+                }
+            );
 
     }
 }
