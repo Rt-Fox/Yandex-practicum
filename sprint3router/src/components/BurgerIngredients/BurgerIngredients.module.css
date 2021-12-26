@@ -1,0 +1,29 @@
+.left-section {
+    width: 600px;
+    margin-right: 20px;
+}
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tab > div {
+    width: 200px;
+    margin-bottom: 40px;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 650px;
+}
+.title_ingredients {
+    font-size: 24px;
+    line-height: 30px;
+    color: #F2F2F3;
+}
+.list_ingredients {
+    display: flex;
+    flex-wrap: wrap;
+}
