@@ -5,14 +5,11 @@ import {
     SET_INGREDIENTS,
     SET_INGREDIENTS_BUN,
     SET_INGREDIENTS_DETAIL,
-    SET_NEW_INGREDIENTS,
-    SET_MODAL_OPEN
+    SET_NEW_INGREDIENTS
 } from "../actions/ingredientsAction";
 
 
 const defaultState = {
-    modalOpen: false,
-    itemId: false,
     ingredients: [],
     sort: 0,
     ingredients_details: {},
@@ -31,12 +28,6 @@ export const ingredientsReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 ingredients: [...action.payload]
-            }
-        case SET_MODAL_OPEN:
-            return {
-                ...state,
-                modalOpen: action.payload.flag,
-                itemId: action.payload.itemId
             }
         case SET_INGREDIENTS_DETAIL:
             return {
