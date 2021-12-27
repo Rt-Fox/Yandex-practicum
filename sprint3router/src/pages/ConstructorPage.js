@@ -1,16 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from "./Constructor.module.css";
 import BurgerIngredients from "../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor";
-import {useDispatch} from "react-redux";
-import {getData} from "../services/http/getData";
 
 const ConstructorPage = () => {
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getData())
-    },[]);
     return (
         <main id={'ConstructorPage'}>
             <div className='container'>

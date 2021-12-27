@@ -1,34 +1,15 @@
 import React, {useEffect} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "./Ingredients/Ingredient";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import styles from "./BurgerIngredients.module.css"
-import {setModalOpen} from "../../services/actions/ingredientsAction";
-import {useHistory} from "react-router-dom";
 
 
 const BurgerIngredients = () => {
-    const dispatch = useDispatch();
-    const history = useHistory();
 
     const data = useSelector(state => state.data)
 
     const [current, setCurrent] = React.useState('bun');
-
-    const open = useSelector(state => state.ingredients.modalOpen)
-
-    useEffect(()=> {
-        if (localStorage.getItem('modal')){
-            dispatch(setModalOpen({flag: JSON.parse(localStorage.getItem(`modal`))?.flag, itemId: JSON.parse(localStorage.getItem(`modal`))?.itemId}))
-
-            if (open) {
-                history.replace({
-                    pathname: `/ingredients/${JSON.parse(localStorage.getItem(`modal`))?.itemId}`
-                });
-            }
-        }
-    },[])
-
 
     useEffect(() => {
         const section = document.getElementById('burger-ingredients_section')

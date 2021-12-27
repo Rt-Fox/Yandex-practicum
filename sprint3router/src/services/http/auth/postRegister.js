@@ -13,7 +13,7 @@ export const postRegister = (form) => {
             },
             method: 'POST',
             body: JSON.stringify(form)
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 if (response.success) {
                     dispatch(setUser(response))

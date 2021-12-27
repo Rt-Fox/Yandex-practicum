@@ -13,7 +13,7 @@ const Modal = (props) => {
             <ModalOverlay handleClickClose={handleClickClose} />
             <section className={styles['modal-self']}>
                 <header className={styles['modal-self_header']+' mt-10 mr-10 ml-10'}>
-                    <CloseIcon onClick={()=>handleClickClose()} type="primary" />
+                    <CloseIcon onClick={handleClickClose} type="primary" />
                     <p className="text text_type_main-large">
                         {header}
                     </p>

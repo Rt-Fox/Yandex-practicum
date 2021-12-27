@@ -9,25 +9,27 @@ import {postPasswordReset} from "../../services/http/resetPassword/postPasswordR
 const ResetPassword = () => {
     const dispatch = useDispatch();
 
-    const checkEmailData = useSelector(state =>  state.resetPassword.checkEmailData)
+    const checkEmailData = useSelector(state => state.resetPassword.checkEmailData)
     const form = useSelector(state => state.resetPassword.formNewPassword)
+    const isAuth = useSelector(state => state.user.success)
 
     const [passwordShow, setPasswordShow] = useState(false)
-    const isAuth = useSelector(state =>  state.user.success)
 
     const onChange = e => {
-        dispatch(setFormNewPassword({ ...form, [e.target.name]: e.target.value }));
+        dispatch(setFormNewPassword({...form, [e.target.name]: e.target.value}));
     };
+
     const submitForm = useCallback(
         e => {
             e.preventDefault();
             dispatch(postPasswordReset(form))
         },
-        [form]
+        [form, dispatch]
     );
+
     useEffect(() => {
         return () => dispatch(cleanResetPassword())
-    },[])
+    }, [dispatch])
 
     if (isAuth) {
         return (
@@ -38,6 +40,7 @@ const ResetPassword = () => {
             />
         );
     }
+
     if (!checkEmailData.success) {
         return (
             <Redirect
@@ -47,41 +50,44 @@ const ResetPassword = () => {
             />
         );
     }
+
     return (
         <div className={styles.container}>
             <p className="text text_type_main-medium">
                 Восстановление пароля
             </p>
-            <div className={'input__block mt-6'}>
-                <Input
-                    type={passwordShow?'text':'password'}
-                    placeholder={'Введите новый пароль'}
-                    onChange={onChange}
-                    value={form.password}
-                    name={'password'}
-                    onIconClick={
-                        ()=> setPasswordShow(!passwordShow)
-                    }
-                    icon={passwordShow?'HideIcon':'ShowIcon'}
-                    size={'default'}
-                />
-            </div>
-            <div className={'input__block mt-6'}>
-                <Input
-                    type={'text'}
-                    placeholder={'Введите код из письма'}
-                    onChange={onChange}
-                    value={form.token}
-                    name={'token'}
-                    error={false}
-                    size={'default'}
-                />
-            </div>
-            <div className={'mt-6'}>
-                <Button type="primary" size="medium" onClick={submitForm}>
-                    Сохранить
-                </Button>
-            </div>
+            <form className={styles.form} onSubmit={submitForm}>
+                <div className={'input__block mt-6'}>
+                    <Input
+                        type={passwordShow ? 'text' : 'password'}
+                        placeholder={'Введите новый пароль'}
+                        onChange={onChange}
+                        value={form.password}
+                        name={'password'}
+                        onIconClick={
+                            () => setPasswordShow(!passwordShow)
+                        }
+                        icon={passwordShow ? 'HideIcon' : 'ShowIcon'}
+                        size={'default'}
+                    />
+                </div>
+                <div className={'input__block mt-6'}>
+                    <Input
+                        type={'text'}
+                        placeholder={'Введите код из письма'}
+                        onChange={onChange}
+                        value={form.token}
+                        name={'token'}
+                        error={false}
+                        size={'default'}
+                    />
+                </div>
+                <div className={'mt-6'}>
+                    <Button type="primary" size="medium">
+                        Сохранить
+                    </Button>
+                </div>
+            </form>
             <div className={styles.inline + ' mt-20'}>
                 <p className="text text_type_main-default text_color_inactive">
                     Вспомнили пароль?

@@ -16,16 +16,16 @@ export const pathUser = (body) => {
     return dispatch => {
         fetch(`${url}/auth/user`, {
             headers: {
-                'Accept': 'application/json'    ,
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': JSON.parse(localStorage.getItem(`token`))?.accessToken
             },
             method: 'PATH',
             body: JSON.stringify(body)
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 if (response.success) {
-                    dispatch(setProfile({email:response.user.email, name: response.user.name}))
+                    dispatch(setProfile({email: response.user.email, name: response.user.name}))
                 }
                 if (response.message === 'You should be authorised') {
                     dispatch(postToken())

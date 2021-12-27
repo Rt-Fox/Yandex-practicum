@@ -13,7 +13,7 @@ export const checkEmail = (form) => {
             },
             method: 'POST',
             body: JSON.stringify(form)
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 dispatch(setCheckEmailData(response));
             })

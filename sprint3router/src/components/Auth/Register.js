@@ -8,19 +8,22 @@ import {postRegister} from "../../services/http/auth/postRegister";
 
 const Register = () => {
     const dispatch = useDispatch();
-    const form = useSelector(state =>  state.authorization.formRegister)
-    const isAuth = useSelector(state =>  state.user.success)
+
+    const form = useSelector(state => state.authorization.formRegister)
+    const isAuth = useSelector(state => state.user.success)
 
     const onChange = e => {
-        dispatch(setFormRegister({ ...form, [e.target.name]: e.target.value }));
+        dispatch(setFormRegister({...form, [e.target.name]: e.target.value}));
     };
+
     const submitForm = useCallback(
         e => {
             e.preventDefault();
             dispatch(postRegister(form))
         },
-        [form]
+        [form, dispatch]
     );
+
     if (isAuth) {
         return (
             <Redirect
@@ -30,39 +33,42 @@ const Register = () => {
             />
         );
     }
+
     return (
         <div className={styles.container}>
             <p className="text text_type_main-medium">
                 Регистрация
             </p>
-            <div className={'input__block mt-6'}>
-                <Input
-                    type={'text'}
-                    placeholder={'Имя'}
-                    onChange={onChange}
-                    value={form.name}
-                    name={'name'}
-                    size={'default'}
-                />
-            </div>
-            <div className={'input__block mt-6'}>
-                <Input
-                    type={'email'}
-                    placeholder={'E-mail'}
-                    onChange={onChange}
-                    value={form.email}
-                    name={'email'}
-                    size={'default'}
-                />
-            </div>
-            <div className={'input__block mt-6'}>
-                <PasswordInput onChange={onChange} value={form.password} name={'password'} />
-            </div>
-            <div className={'mt-6'}>
-                <Button type="primary" size="medium" onClick={submitForm}>
-                    Зарегистрироваться
-                </Button>
-            </div>
+            <form className={styles.form} onSubmit={submitForm}>
+                <div className={'input__block mt-6'}>
+                    <Input
+                        type={'text'}
+                        placeholder={'Имя'}
+                        onChange={onChange}
+                        value={form.name}
+                        name={'name'}
+                        size={'default'}
+                    />
+                </div>
+                <div className={'input__block mt-6'}>
+                    <Input
+                        type={'email'}
+                        placeholder={'E-mail'}
+                        onChange={onChange}
+                        value={form.email}
+                        name={'email'}
+                        size={'default'}
+                    />
+                </div>
+                <div className={'input__block mt-6'}>
+                    <PasswordInput onChange={onChange} value={form.password} name={'password'}/>
+                </div>
+                <div className={'mt-6'}>
+                    <Button type="primary" size="medium">
+                        Зарегистрироваться
+                    </Button>
+                </div>
+            </form>
             <div className={styles.inline + ' mt-20'}>
                 <p className="text text_type_main-default text_color_inactive">
                     Уже зарегистрированы?

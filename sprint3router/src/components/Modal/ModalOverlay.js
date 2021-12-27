@@ -8,7 +8,7 @@ const ModalOverlay = ({handleClickClose}) => {
             return;
         }
         if (event.key === 'Esc' || event.key === 'Escape') {
-            handleClickClose()
+            handleClickClose(event)
         }
     },[handleClickClose]);
 
@@ -24,9 +24,9 @@ const ModalOverlay = ({handleClickClose}) => {
         <div onClick={
             (event) =>
                 (event.target.classList.contains('ModalOverlay'))?
-                    handleClickClose()
+                    handleClickClose(event)
                     :
-                    console.log(event.target.classList.value?.slice(0,12))
+                    null
             } className={'ModalOverlay ' + styles.ModalOverlay}>
         </div>
 

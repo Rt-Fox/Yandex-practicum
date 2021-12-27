@@ -14,7 +14,7 @@ export const postLogout = () => {
             },
             method: 'POST',
             body: JSON.stringify({'token': `${JSON.parse(localStorage.getItem(`token`))?.refreshToken}`})
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 if (response.success) {
                     dispatch(cleanUser())

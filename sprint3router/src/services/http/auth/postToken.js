@@ -13,7 +13,7 @@ export const postToken = () => {
             },
             method: 'POST',
             body: JSON.stringify({'token': `${JSON.parse(localStorage.getItem(`token`))?.refreshToken}`})
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 if (response.success) {
                     dispatch(setToken({accessToken: response.accessToken, refreshToken: response.refreshToken}))
@@ -23,7 +23,7 @@ export const postToken = () => {
             .catch(errResponse => {
                     errResponse.json()
                         .then(err => {
-                            console.log(err.message)
+                                console.log(err.message)
                             }
                         )
                 }

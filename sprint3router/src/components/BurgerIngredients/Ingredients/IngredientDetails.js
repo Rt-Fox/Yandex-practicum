@@ -1,8 +1,22 @@
 import React from 'react';
-import {menuItemPropTypes} from "../../../utils/constants";
 import styles from "../../Modal/Modal.module.css"
+import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-const IngredientDetails = ({item}) => {
+const IngredientDetails = () => {
+    const { id } = useParams();
+    const data = useSelector(state => state.data)
+
+    const item = data.data_main.find(item => item._id===id) || data.data_bun.find(item => item._id===id) || data.data_sauce.find(item => item._id===id);
+
+    if (!item) {
+        return <div className={styles.container}>
+                    <p className="text text_type_main-large text-center">
+                        Ингридиент не найден
+                    </p>
+                </div>
+    }
+
     return (
         <main className={styles['modal-self_main'] + ' mb-15'}>
             <img src={item?.image_large} alt=""/>
@@ -41,6 +55,3 @@ const IngredientDetails = ({item}) => {
 
 export default IngredientDetails;
 
-IngredientDetails.propTypes = {
-    item: menuItemPropTypes.isRequired,
-};

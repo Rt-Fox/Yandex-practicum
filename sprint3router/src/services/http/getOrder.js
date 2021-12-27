@@ -15,7 +15,7 @@ export const getOrder = (data) => {
             },
             method: 'POST',
             body: JSON.stringify(data)
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
                 dispatch(setOrder(response));
                 dispatch(deleteAllIngredients())

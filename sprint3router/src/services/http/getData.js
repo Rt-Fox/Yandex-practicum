@@ -16,14 +16,14 @@ export const getData = () => {
                 const dataBun = [];
                 const dataSauce = [];
                 const dataMain = [];
-                response.data.forEach((item,index) => {
-                     item.type === 'bun'?
-                         dataBun.push(item)
-                         :
-                     item.type === 'sauce'?
-                         dataSauce.push(item)
-                         :
-                         dataMain.push(item)
+                response.data.forEach((item, index) => {
+                    item.type === 'bun' ?
+                        dataBun.push(item)
+                        :
+                        item.type === 'sauce' ?
+                            dataSauce.push(item)
+                            :
+                            dataMain.push(item)
                 });
                 dispatch(setDataBun(dataBun));
                 dispatch(setDataSauce(dataSauce));

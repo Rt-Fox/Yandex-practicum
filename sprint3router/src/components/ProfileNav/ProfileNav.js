@@ -7,14 +7,14 @@ import {useDispatch} from "react-redux";
 const ProfileNav = () => {
     const dispatch = useDispatch();
 
-    let location = useLocation();
+    const location = useLocation();
 
     const logout = useCallback(
         e => {
             e.preventDefault();
             dispatch(postLogout())
         },
-        []
+        [dispatch]
     );
     return (
         <div className={styles['profile-nav']}>

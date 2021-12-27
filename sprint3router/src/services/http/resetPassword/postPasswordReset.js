@@ -13,9 +13,9 @@ export const postPasswordReset = (form) => {
             },
             method: 'POST',
             body: JSON.stringify(form)
-        }) .then(checkResponse)
+        }).then(checkResponse)
             .then(response => {
-                if(response.success) {
+                if (response.success) {
                     dispatch(cleanResetPassword())
                 }
             })

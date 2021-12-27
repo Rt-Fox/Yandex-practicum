@@ -12,15 +12,15 @@ const TotalPrice = () => {
 
     useEffect(
         () => {
-            let total = ingredients.ingredients_bun?.price*2;
+            let total = ingredients.ingredients_bun? ingredients.ingredients_bun.price * 2 : 0;
             ingredients.ingredients?.map(item => (total += item?.price));
             dispatch(setPrice(total))
         },
-        [ingredients]
+        [ingredients,dispatch]
     );
     return (
         <div className={styles.summ_price}>
-            <p className="text text_type_digits-medium">{price.total_price?price.total_price:0}</p>
+            <p className="text text_type_digits-medium">{price.total_price}</p>
             <CurrencyIcon style={{width: '33px'}} type="primary" />
         </div>
     );

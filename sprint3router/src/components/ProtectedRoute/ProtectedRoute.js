@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import {useSelector} from "react-redux";
 
 const ProtectedRoute = ({ children, ...rest }) => {
-    const isAuth = useSelector(state =>  state.user.success)
+    const isAuth = useSelector(state =>  state.user.success)||localStorage.getItem('token')
 
     return (
         <Route

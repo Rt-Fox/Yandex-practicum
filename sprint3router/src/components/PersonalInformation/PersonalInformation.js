@@ -27,12 +27,12 @@ const PersonalInformation = () => {
             e.preventDefault();
             dispatch(pathUser(personalInfo))
         },
-        [personalInfo]
+        [personalInfo, dispatch]
     );
     const onIconClick = type => {
             if (!personalInfo[type]) {
                 dispatch(setPersonalInformation({name: type, value: user[type]}))
-            }else {
+            } else {
                 dispatch(cleanPersonalInformation({name: type}))
             }
         };
