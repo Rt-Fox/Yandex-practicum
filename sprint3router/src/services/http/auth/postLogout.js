@@ -2,6 +2,7 @@ import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
 import {cleanUser} from "../../actions/userAction";
 import {postToken} from "./postToken";
+import {catchResponse} from "../catchResponse";
 
 export const postLogout = () => {
 
@@ -20,18 +21,10 @@ export const postLogout = () => {
                     dispatch(cleanUser())
                 }
             })
-            .catch(errResponse => {
-                    errResponse.json()
-                        .then(err => {
-                                if (err.message === "jwt expired") {
-                                    dispatch(postToken())
-                                } else {
-                                    console.log(err.message)
-                                }
-                            }
-                        )
+            .catch(err => {
+                    catchResponse(err, dispatch)
                 }
-            );
+            )
 
     }
 }

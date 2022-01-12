@@ -2,6 +2,7 @@ import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
 import {setProfile} from "../../actions/userAction";
 import {postToken} from "../auth/postToken";
+import {catchResponse} from "../catchResponse";
 
 export const getUser = () => {
 
@@ -19,14 +20,8 @@ export const getUser = () => {
                     dispatch(setProfile({email: response.user.email, name: response.user.name}))
                 }
             })
-            .catch(errResponse => {
-                    errResponse.json()
-                        .then(err => {
-                                if (err.message === "jwt expired") {
-                                    dispatch(postToken())
-                                }
-                            }
-                        )
+            .catch(err => {
+                    catchResponse(err, dispatch)
                 }
             )
 

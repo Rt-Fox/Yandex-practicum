@@ -2,6 +2,7 @@ import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
 import {setCheckEmailData} from "../../actions/resetPasswordAction";
 import {postToken} from "../auth/postToken";
+import {catchResponse} from "../catchResponse";
 
 export const checkEmail = (form) => {
 
@@ -17,18 +18,10 @@ export const checkEmail = (form) => {
             .then(response => {
                 dispatch(setCheckEmailData(response));
             })
-            .catch(errResponse => {
-                    errResponse.json()
-                        .then(err => {
-                                if (err.message === "jwt expired") {
-                                    dispatch(postToken())
-                                } else {
-                                    console.log(err.message)
-                                }
-                            }
-                        )
+            .catch(err => {
+                    catchResponse(err, dispatch)
                 }
-            );
+            )
 
     }
 }

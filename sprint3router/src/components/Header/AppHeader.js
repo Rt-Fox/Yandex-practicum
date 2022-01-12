@@ -11,7 +11,7 @@ const AppHeader = () => {
     <header className={styles.AppHeader}>
         <div className="container h-100">
             <div className="row h-100 align-items-center justify-content-between">
-                <div className='col d-flex align-items-center'>
+                <nav className='col d-flex align-items-center'>
                     <Link to='/' className='d-flex'>
                         {location.pathname==="/"?
                             <>
@@ -38,7 +38,7 @@ const AppHeader = () => {
                             </>
                         }
                     </Link>
-                </div>
+                </nav>
                 <Link to={'/'} className='w-auto'>
                     <Logo />
                 </Link>

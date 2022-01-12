@@ -2,6 +2,7 @@ import {url} from "../../../utils/constants";
 import {checkResponse} from "../checkResponse";
 import {setProfile} from "../../actions/userAction";
 import {postToken} from "../auth/postToken";
+import {catchResponse} from "../catchResponse";
 
 export const pathUser = (body) => {
     if (body.email === '') {
@@ -31,14 +32,8 @@ export const pathUser = (body) => {
                     dispatch(postToken())
                 }
             })
-            .catch(errResponse => {
-                    errResponse.json()
-                        .then(err => {
-                                if (err.message === "jwt expired") {
-                                    dispatch(postToken())
-                                }
-                            }
-                        )
+            .catch(err => {
+                    catchResponse(err, dispatch)
                 }
             )
 
